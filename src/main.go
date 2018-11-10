@@ -1,10 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"syscall/js"
+)
 
 func main() {
 
 	cards := newDeck()
 	cards.shuffle()
-	fmt.Println(cards)
+	jsArr := js.TypedArrayOf([]byte(cards.toString()))
+	js.Global().Set("cards", jsArr)
 }
